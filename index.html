@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Me amas?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .animate-scaleIn {
+            animation: scaleIn 0.5s ease-out;
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .animate-heartbeat {
+            animation: heartbeat 1s infinite;
+        }
+        .no-btn {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-pink-100 to-purple-100 overflow-hidden">
+    <div id="title" class="text-4xl md:text-5xl font-black bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent mb-12 transition-all duration-300">
+        ¿Me amas?
+    </div>
+
+    <div class="flex space-x-12 relative">
+        <button id="yesBtn" class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-full text-2xl font-bold shadow-lg transform transition-all duration-300 hover:scale-110">
+            <span class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                SÍ
+            </span>
+        </button>
+
+        <button id="noBtn" class="no-btn bg-red-500 hover:bg-red-600 text-white px-8 py-6 rounded-full text-xl font-semibold shadow-lg transition-all duration-300">
+            NO
+        </button>
+    </div>
+
+    <div id="alert" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 animate-fadeIn hidden">
+        <div class="bg-white rounded-xl p-8 shadow-2xl transform animate-scaleIn flex flex-col items-center gap-4 max-w-md border-4 border-pink-300 border-double">
+            <img src="corazon.gif" alt="Corazón animado" class="w-32 h-32 animate-float animate-heartbeat rounded-full border-4 border-red-500 shadow-lg">
+            <div class="text-2xl font-semibold text-green-600 text-center">
+                ¡Respuesta correcta! ¡Yo también te amo! ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const alert = document.getElementById('alert');
+        const title = document.getElementById('title');
+        let noAttempts = 0;
+
+        function getRandomPosition() {
+            const randomX = Math.random() * 200 - 100;
+            const randomY = Math.random() * 200 - 100;
+            return { x: randomX, y: randomY };
+        }
+
+        function handleNoHover() {
+            const { x, y } = getRandomPosition();
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+            noBtn.style.fontSize = `${Math.max(10, 18 - noAttempts)}px`;
+            noBtn.style.opacity = Math.max(0.3, 1 - noAttempts * 0.1);
+            noAttempts++;
+        }
+
+        function handleYesClick() {
+            alert.classList.remove('hidden');
+            setTimeout(() => alert.classList.add('hidden'), 5000);
+        }
+
+        yesBtn.addEventListener('click', handleYesClick);
+        yesBtn.addEventListener('mouseenter', () => yesBtn.classList.add('animate-pulse'));
+        yesBtn.addEventListener('mouseleave', () => yesBtn.classList.remove('animate-pulse'));
+        noBtn.addEventListener('mouseenter', handleNoHover);
+
+        // Title animation
+        title.animate(
+            [
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.1)' },
+                { transform: 'scale(1)' }
+            ],
+            {
+                duration: 2000,
+                iterations: Infinity
+            }
+        );
+    </script>
+</body>
+</html>

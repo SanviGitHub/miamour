@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    color: #fff;
+    padding: 30px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    width: 300px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 40px;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #fff;
+    background: none;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
